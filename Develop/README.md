@@ -1,8 +1,7 @@
-# ad
+# readme-generator
 
-[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-    </br>
-    
+[![License](https://img.shields.io/badge/License-BSD%202--Clause-orange.svg)](https://opensource.org/licenses/BSD-2-Clause)
+
     # Table Of Contents
 
 * [Description](#description)
@@ -13,41 +12,37 @@
     * [License](#license)
     * [Questions](#questions)
     
-    </br>
-    
+
     # Description
 
-adf
-    </br>
-    
+description
+
     # Installation
 
-adf
-    </br>
-    
+install
+
     # Usage
 
-ad
-    </br>
-    
+usage
+
     # Contributing
 
-a
-    </br>
-    
+contributing
+
     # Tests
 
-df
-    </br>
-    
+testing
+
     # License
 
-Apache
-    </br>
-    
+BSD2
+
     # Questions
 
-sd
-    </br>
-    
+[shhu21](https://github.com/shhu21) </br>
+
+    <hu.sara21@gmail.com> </br>
+
+    contact
+
     

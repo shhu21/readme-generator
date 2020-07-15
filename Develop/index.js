@@ -66,14 +66,12 @@ const questions = [
 
 function addBreak() {
     return `
-    </br>
-    
+
     `;
 }
 
 function createReadme(data) {
-    var readme = "";
-    readme = generateMarkdown(data.Repository);
+    var readme = generateMarkdown(data.Repository);
     readme += badges[data.License];
     readme += addBreak();
 
@@ -91,6 +89,12 @@ function createReadme(data) {
     
     for(let i = 0; i < keys.length; i++) {
         readme += generateMarkdown(keys[i]);
+        if(keys[i] == 'Questions') {
+            readme += `[${data.user}](https://github.com/${data.user.replace(/ /g, '-')}) </br>`;
+            readme += addBreak();
+            readme += `<${data.email}> </br>`;
+            readme += addBreak();
+        }
         readme += data[keys[i]];
         readme += addBreak();
     }
@@ -109,8 +113,6 @@ function writeToFile(fileName, data) {
         if (err) {
           return console.log(err);
         }
-    
-        // console.log(readme);    
     });
 }
 
@@ -128,3 +130,6 @@ function init() {
 
 // function call to initialize program
 init();
+
+// TODO: fix tabbing issue in the readme
+// TODO: code clean up
