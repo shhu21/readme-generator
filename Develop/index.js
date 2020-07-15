@@ -60,13 +60,24 @@ const questions = [
 
 // function to write README file
 function writeToFile(fileName, data) {
-    fs.writeFile(fileName, JSON.stringify(data, null, '\t'), function(err) {
+    var readme = "";
+    // create the table of contents
+    var table = "";
+
+    // loop through data
+        // call createTableOfContents on each data.name
+        // push to table
+    // push table to readme
+
+    // manipulate data into sections and add to readme variable
+
+    // write to the readme file
+    fs.writeFile(fileName, readme, function(err) {
         if (err) {
           return console.log(err);
         }
     
-        console.log(data);
-    
+        console.log(readme);    
     });
 }
 
