@@ -67,16 +67,15 @@ const questions = [
 function addBreak() {
     return `
 
-    `;
+`;
 }
 
 function createReadme(data) {
-    var readme = generateMarkdown(data.Repository);
-    readme += badges[data.License];
-    readme += addBreak();
+    var readme = generateMarkdown(data.Repository)
+        + badges[data.License]
+        + addBreak()
+        + generateMarkdown('Table Of Contents');
 
-    // create the table of contents
-    readme += generateMarkdown('Table Of Contents');
     var keys = Object.keys(data);
     keys.shift();
     keys.pop();
@@ -106,10 +105,9 @@ function createReadme(data) {
 // function to write README file
 function writeToFile(fileName, data) {
     console.log(data)
-    var readme = createReadme(data);
 
     // write to the readme file
-    fs.writeFile(fileName, readme, function(err) {
+    fs.writeFile(fileName, createReadme(data), function(err) {
         if (err) {
           return console.log(err);
         }
@@ -131,5 +129,4 @@ function init() {
 // function call to initialize program
 init();
 
-// TODO: fix tabbing issue in the readme
 // TODO: code clean up
