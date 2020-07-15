@@ -2,44 +2,55 @@ const fs = require('fs');
 const inquirer = require("inquirer");
 const generateMarkdown = require("./utils/generateMarkdown");
 const createTableOfContents = require("./utils/createTableOfContents");
+// TODO: change to dynamic, data.keys() -> returns an array of the object's keys
+const badges = {
+    Apache: '[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)',
+    BSD2: '[![License](https://img.shields.io/badge/License-BSD%202--Clause-orange.svg)](https://opensource.org/licenses/BSD-2-Clause)',
+    BSD3:  '[![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)'
+};
 
 // array of questions for user
 const questions = [
     {
         type: 'input',
-        name: 'repo',
+        name: 'Repository',
         message: 'Enter your repository: '
-        },
+    },
     {
         type: 'input',
-        name: 'desc',
+        name: 'Description',
         message: 'Enter a description: '
     },
     {
         type: 'input',
-        name: 'install',
+        name: 'Installation',
         message: 'Enter installation instructions: '
     },
     {
         type: 'input',
-        name: 'usage',
+        name: 'Usage',
         message: 'Enter usage information: '
     },
     {
         type: 'input',
-        name: 'contribute',
+        name: 'Contributing',
         message: 'Enter contributing instructions: '
     },
     {
         type: 'input',
-        name: 'tests',
+        name: 'Tests',
         message: 'Enter testing instructions: '
     },
     {
         type: 'list',
-        name: 'liscense',
-        message: 'Enter installation instructions: ',
-        choices: ['email', 'phone', 'Slack', 'smoke signal']
+        name: 'License',
+        message: 'Choose a license: ',
+        choices: ['Apache', 'BSD2', 'BSD3']
+    },
+    {
+        type: 'input',
+        name: 'Questions',
+        message: 'Enter contact instructions: '
     },
     {
         type: 'input',
@@ -50,26 +61,48 @@ const questions = [
         type: 'input',
         name: 'email',
         message: 'Enter your email: '
-    },
-    {
-        type: 'input',
-        name: 'questions',
-        message: 'Enter contact instructions: '
     }
 ];
 
+function addBreak() {
+    return `
+    </br>
+    
+    `;
+}
+
+function createReadme(data) {
+    var readme = "";
+    readme = generateMarkdown(data.Repository);
+    readme += badges[data.License];
+    readme += addBreak();
+
+    // create the table of contents
+    readme += generateMarkdown('Table Of Contents');
+    var keys = Object.keys(data);
+    keys.shift();
+    keys.pop();
+    keys.pop();
+    
+    for(let i = 0; i < keys.length; i++) {
+        readme += createTableOfContents(keys[i]);
+    }
+    readme += addBreak();
+    
+    for(let i = 0; i < keys.length; i++) {
+        readme += generateMarkdown(keys[i]);
+        readme += data[keys[i]];
+        readme += addBreak();
+    }
+    
+    console.log(readme)
+    return readme;
+}
+
 // function to write README file
 function writeToFile(fileName, data) {
-    var readme = "";
-    // create the table of contents
-    var table = "";
-
-    // loop through data
-        // call createTableOfContents on each data.name
-        // push to table
-    // push table to readme
-
-    // manipulate data into sections and add to readme variable
+    console.log(data)
+    var readme = createReadme(data);
 
     // write to the readme file
     fs.writeFile(fileName, readme, function(err) {
@@ -77,7 +110,7 @@ function writeToFile(fileName, data) {
           return console.log(err);
         }
     
-        console.log(readme);    
+        // console.log(readme);    
     });
 }
 
@@ -86,7 +119,7 @@ function init() {
     inquirer
         .prompt(questions)
         .then(data => {
-            writeToFile('README.md', generateMarkdown(data));
+            writeToFile('README.md', data);
         })
         .catch(error => {
             console.log(error);

@@ -1,5 +1,6 @@
 function createTableOfContents(data) {
-    return `* [${data}](#${data.toLowerCase().replace(' ', '-')})`;
+    return `* [${data}](#${data.toLowerCase()})
+    `;
 }
 
 module.exports = createTableOfContents;
