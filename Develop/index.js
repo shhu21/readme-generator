@@ -2,7 +2,6 @@ const fs = require('fs');
 const inquirer = require("inquirer");
 const generateMarkdown = require("./utils/generateMarkdown");
 const createTableOfContents = require("./utils/createTableOfContents");
-// TODO: change to dynamic, data.keys() -> returns an array of the object's keys
 const badges = {
     Apache: '[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)',
     BSD2: '[![License](https://img.shields.io/badge/License-BSD%202--Clause-orange.svg)](https://opensource.org/licenses/BSD-2-Clause)',
@@ -14,7 +13,41 @@ const questions = [
     {
         type: 'input',
         name: 'Repository',
-        message: 'Enter your repository: '
+        message: 'Enter your repository: ',
+        validate: nameInput => {
+            if (nameInput) {
+                return true;
+            } else {
+                console.log('Please enter your repository name.');
+                return false;
+            }
+        }
+    },
+    {
+        type: 'input',
+        name: 'user',
+        message: 'Enter your GitHub username: ',
+        validate: nameInput => {
+            if (nameInput) {
+                return true;
+            } else {
+                console.log('Please enter your GitHub username.');
+                return false;
+            }
+        }
+    },
+    {
+        type: 'input',
+        name: 'email',
+        message: 'Enter your email: ',
+        validate: nameInput => {
+            if (nameInput) {
+                return true;
+            } else {
+                console.log('Please enter your email.');
+                return false;
+            }
+        }
     },
     {
         type: 'input',
@@ -51,16 +84,6 @@ const questions = [
         type: 'input',
         name: 'Questions',
         message: 'Enter contact instructions: '
-    },
-    {
-        type: 'input',
-        name: 'user',
-        message: 'Enter your GitHub username: '
-    },
-    {
-        type: 'input',
-        name: 'email',
-        message: 'Enter your email: '
     }
 ];
 
@@ -78,8 +101,8 @@ function createReadme(data) {
 
     var keys = Object.keys(data);
     keys.shift();
-    keys.pop();
-    keys.pop();
+    keys.shift();
+    keys.shift();
     
     for(let i = 0; i < keys.length; i++) {
         readme += createTableOfContents(keys[i]);
@@ -89,13 +112,13 @@ function createReadme(data) {
     for(let i = 0; i < keys.length; i++) {
         readme += generateMarkdown(keys[i]);
         if(keys[i] == 'Questions') {
-            readme += `[${data.user}](https://github.com/${data.user.replace(/ /g, '-')}) </br>`;
-            readme += addBreak();
-            readme += `<${data.email}> </br>`;
-            readme += addBreak();
+            readme += `[${data.user}](https://github.com/${data.user}) </br>`
+                + addBreak()
+                + `<${data.email}> </br>`
+                + addBreak();
         }
-        readme += data[keys[i]];
-        readme += addBreak();
+        readme += data[keys[i]]
+            + addBreak();
     }
     
     console.log(readme)
