@@ -14,8 +14,8 @@ const questions = [
         type: 'input',
         name: 'Repository',
         message: 'Enter your repository: ',
-        validate: nameInput => {
-            if (nameInput) {
+        validate: input => {
+            if (input) {
                 return true;
             } else {
                 console.log('Please enter your repository name.');
@@ -27,8 +27,8 @@ const questions = [
         type: 'input',
         name: 'user',
         message: 'Enter your GitHub username: ',
-        validate: nameInput => {
-            if (nameInput) {
+        validate: input => {
+            if (input) {
                 return true;
             } else {
                 console.log('Please enter your GitHub username.');
@@ -40,11 +40,12 @@ const questions = [
         type: 'input',
         name: 'email',
         message: 'Enter your email: ',
-        validate: nameInput => {
-            if (nameInput) {
-                return true;
+        validate: input => {
+            if (input.includes('@')) {
+                    return true;
+
             } else {
-                console.log('Please enter your email.');
+                console.log('\nPlease enter a valid email.');
                 return false;
             }
         }
@@ -71,7 +72,7 @@ const questions = [
     },
     {
         type: 'input',
-        name: 'Tests',
+        name: 'Testing',
         message: 'Enter testing instructions: '
     },
     {
@@ -87,50 +88,45 @@ const questions = [
     }
 ];
 
-function addBreak() {
+const addBreak = () => {
     return `
 
 `;
 }
 
-function createReadme(data) {
-    var readme = generateMarkdown(data.Repository)
+const createReadme = data => {
+    let readme = generateMarkdown(data.Repository)
         + badges[data.License]
         + addBreak()
         + generateMarkdown('Table Of Contents');
 
-    var keys = Object.keys(data);
+    const keys = Object.keys(data);
     keys.shift();
     keys.shift();
     keys.shift();
-    
-    for(let i = 0; i < keys.length; i++) {
-        readme += createTableOfContents(keys[i]);
-    }
+
+    keys.forEach(key => readme += createTableOfContents(key))
     readme += addBreak();
     
-    for(let i = 0; i < keys.length; i++) {
-        readme += generateMarkdown(keys[i]);
-        if(keys[i] == 'Questions') {
+    keys.forEach(key => {
+        readme += generateMarkdown(key);
+        if(key == 'Questions') {
             readme += `[${data.user}](https://github.com/${data.user}) </br>`
                 + addBreak()
                 + `<${data.email}> </br>`
                 + addBreak();
         }
-        readme += data[keys[i]]
+        readme += data[key]
             + addBreak();
-    }
+    });
     
-    console.log(readme)
     return readme;
 }
 
 // function to write README file
-function writeToFile(fileName, data) {
-    console.log(data)
-
+const writeToFile = (fileName, data) => {
     // write to the readme file
-    fs.writeFile(fileName, createReadme(data), function(err) {
+    fs.writeFile(fileName, createReadme(data), (err) => {
         if (err) {
           return console.log(err);
         }
@@ -138,7 +134,7 @@ function writeToFile(fileName, data) {
 }
 
 // function to initialize program
-function init() {
+const init = () => {
     inquirer
         .prompt(questions)
         .then(data => {
@@ -146,7 +142,7 @@ function init() {
         })
         .catch(error => {
             console.log(error);
-        });
+        }); 
 }
 
 // function call to initialize program
