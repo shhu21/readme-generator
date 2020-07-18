@@ -18,7 +18,7 @@ const questions = [
             if (input) {
                 return true;
             } else {
-                console.log('Please enter your repository name.');
+                console.log('\nPlease enter your repository name.');
                 return false;
             }
         }
@@ -31,7 +31,7 @@ const questions = [
             if (input) {
                 return true;
             } else {
-                console.log('Please enter your GitHub username.');
+                console.log('\nPlease enter your GitHub username.');
                 return false;
             }
         }
@@ -88,6 +88,7 @@ const questions = [
     }
 ];
 
+// new line break
 const addBreak = () => {
     return `
 
@@ -105,9 +106,11 @@ const createReadme = data => {
     keys.shift();
     keys.shift();
 
+    // add and create the table of contents
     keys.forEach(key => readme += createTableOfContents(key))
     readme += addBreak();
     
+    // add the rest of the readme content
     keys.forEach(key => {
         readme += generateMarkdown(key);
         if(key == 'Questions') {
@@ -147,5 +150,3 @@ const init = () => {
 
 // function call to initialize program
 init();
-
-// TODO: code clean up
