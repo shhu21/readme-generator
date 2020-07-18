@@ -1,7 +1,7 @@
 # Professional README Generator
 
 # Demo
-[Demo Video](./assets/demo.mp4)
+[Demo Video](https://drive.google.com/file/d/1yXG5M7Ustq3eNsSlza1skXjHbIc2xlw-/preview)
 
 # Table Of Contents
 
