@@ -141,7 +141,7 @@ const init = () => {
     inquirer
         .prompt(questions)
         .then(data => {
-            writeToFile('README.md', data);
+            writeToFile('./dist/README.md', data);
         })
         .catch(error => {
             console.log(error);
