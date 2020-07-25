@@ -17,11 +17,10 @@ Creates a professional README using user input from the command line.
 # Installation
 1. Clone the repository.
 2. Run `npm install` in the command line to install the dependancies.
-3. Navigate to the *Develop* directory.
-4. Run `node index.js` in the command line to start the program.
+3. Run `node index.js` in the command line to start the program.
 
 # User's Guide
-As mentioned in the [Installation](#installation) instructions, run `node index.js` to start the program. The generated README will contain the name of the user's repository, a badge of the chosen license, a table of contents, and the listed sections with their respective content that is inputted by the user. (See below for a list of each user prompt.) After all the prompts are completed, the user can find the generated README in the *Develop* directory of the repository with the name *README.md*. View the [Demo](#demo) for a video walkthrough of the program. </br>
+As mentioned in the [Installation](#installation) instructions, run `node index.js` to start the program. The generated README will contain the name of the user's repository, a badge of the chosen license, a table of contents, and the listed sections with their respective content that is inputted by the user. (See below for a list of each user prompt.) After all the prompts are completed, the user can find the generated README in the *dist* directory of the repository with the name *README.md*. View the [Demo](#demo) for a video walkthrough of the program. </br>
 
 The README Generator takes a total of 10 inputs from the user:  </br>
 *Note: Required fields will be continously prompted until a passable value is inputted and optional fields may be passed as empty.  If an optional field is left empty, then the section title will still be listed in the README, but with no description below (as seen in the Demo for the Testing prompt).*
